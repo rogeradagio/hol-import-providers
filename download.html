@@ -1,0 +1,37 @@
+<form id="download-form">
+  <label>
+    <input type="radio" name="protocol" value="ftp" checked> FTP
+    <input type="radio" name="protocol" value="http"> HTTP
+  </label>
+  <br>
+  <label>Server: <input type="text" name="server"></label>
+  <br>
+  <label>Username: <input type="text" name="username"></label>
+  <br>
+  <label>Password: <input type="password" name="password"></label>
+  <br>
+  <label>File path: <input type="text" name="file_path"></label>
+  <br>
+  <label>Local path: <input type="text" name="local_path"></label>
+  <br>
+  <button type="submit">Download</button>
+</form>
+
+<script>
+  // Add event listener to the form
+  document.getElementById("download-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    // Get form data
+    var formData = new FormData(this);
+    // Send a POST request to the server with the form data
+    fetch("/download", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(response => {
+      // Handle the response from the server
+      alert(response);
+    });
+  });
+</script>
